@@ -1,0 +1,9 @@
+input_F intein_30k_1.fastq
+input_R intein_30k_2.fastq
+vector_seq pBR322_vector.fasta
+exp_contig_size 420
+k-mer_len 60
+step_size 1
+min_depth 2
+cutoff_ratio 100
+output_prefix k60s1_30k
