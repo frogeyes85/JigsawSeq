@@ -3,9 +3,9 @@ use strict;
 
 # ATAAAGGAATGTGACTGGAGTTCAGACGTGTGCTCTTCCGATCT    105738  4       C,T,G,A,        27204,26871,26613,25050,
 
-my $usage = "./NTS_graph.pl [graph]\n";
-if ($#ARGV != 0){die $usage;}
-my ($in_fname,) = @ARGV;
+my $usage = "./NTS_graph.pl [graph] [DP crit]\n";
+if ($#ARGV != 1){die $usage;}
+my ($in_fname, $crit) = @ARGV;
 my @bin = qw(0 1 2 4 8 16 32 64 128 256 512 1024 2048 4096 8192 16384 32768 65536 131078);
 my @data;
 
