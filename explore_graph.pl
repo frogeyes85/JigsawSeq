@@ -16,7 +16,7 @@ my $t_begin = new Benchmark;my $t_end;
 
 my %node; my $a_node = \%node; my $num_node=0;
 my @initial_nodes; my @terminal_nodes;
-my $max_stroll = ($exp_length*1.5 + $in_kmer)/$step_size;  # allow the half size of expected contig length as insertion size.
+my $max_stroll = int($exp_length + 50 + $in_kmer)/$step_size;  # allow the half size of expected contig length as insertion size.
 
 print "[Program:explore_graph] input: $in_fname seeds: $in_seeds k-mer_len: $in_kmer step_size: $step_size expected_contig_size: $exp_length max_num_stroll: $max_stroll output: $out_fname\n";
 
@@ -144,7 +144,8 @@ sub explore_contig(){
 			($c_contig, ) = split /$terminal_nodes[$c_n_term]/, $c_contig;
 		}
 
-		if (($c_status eq "T")||($c_status eq "M")) {
+		if (($c_status eq "T")) {
+#		if (($c_status eq "T")||($c_status eq "M")) {
 #			print "Added contigs = $c_contig\n";
 			$contigs{$c_contig}{'num'}++;
 			$contigs{$c_contig}{'status'} = $c_status;

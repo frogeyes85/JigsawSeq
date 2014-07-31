@@ -28,22 +28,22 @@ print "[Program:detect_seeds] input: $in_fname vector: $vector_fname k-mer_len: 
 
 open(IN, "<$vector_fname") or die "[Error] Can't open $vector_fname.\n";
 open(OUT, ">$ref_seed_fname");
-<IN>;my $seq=<IN>;
+<IN>;my ($seq,)=split /\s+/, <IN>;
 print OUT ">initial\n", uc(substr($seq,-$len_ref_seed)), "\n";
 print OUT ">terminal\n", uc(substr($seq,0,$len_ref_seed)), "\n";
 close(OUT);
 close(IN);
 
-JigsawSeq::call_sys("bwa index -a is $ref_seed_fname");
-
-if ($in_kmer > 40){    # bwa mem only work for kmer longer than xx.
-	JigsawSeq::call_sys("bwa mem -t 3 -O2 -E1 $ref_seed_fname $in_fname > $seeds_sam_fname");
+JigsawSeq::call_sys("./bwa index -a is $ref_seed_fname");
+if ($in_kmer > 40){    # ./bwa mem only work for kmer longer than xx.
+	JigsawSeq::call_sys("./bwa mem -t 3 -O2 -E1 $ref_seed_fname $in_fname > $seeds_sam_fname");
 } else{
-	JigsawSeq::call_sys("bwa aln -t 3 $ref_seed_fname $in_fname > TMP_$in_fname\.sai"); # may need further opimization for detecting seeds with indels.
-	JigsawSeq::call_sys("bwa samse $ref_seed_fname TMP_$in_fname\.sai $in_fname > $seeds_sam_fname");
+	JigsawSeq::call_sys("./bwa aln -t 3 $ref_seed_fname $in_fname > TMP_$in_fname\.sai"); # may need further opimization for detecting seeds with indels.
+	JigsawSeq::call_sys("./bwa samse $ref_seed_fname TMP_$in_fname\.sai $in_fname > $seeds_sam_fname");
 }
 my $t_end = new Benchmark; 
 print "[Process:detect_seeds] Alignment was completed; Processed Time = ", timestr(timediff($t_end, $t_begin)), "\n";
+#my $seeds_sam_fname = "TMP_KanR_N_96.k60s3.kmer.fa.sam";
 
 my $num_lines=my $num_align_init=my $num_init=my $num_align_term=my $num_term=0;
 my $max_DP_init=my $max_DP_term=-1;
@@ -94,7 +94,7 @@ print "[Report:detect_seeds] Cutoff ratio: $cutoff_ratio\n[Report] Max_inti_DP: 
 print "[Report:detect_seeds] $num_lines K-mers were processed.\n";
 print "[Report:detect_seeds] $num_align_init K-mers were alinged to initial node.\t$num_init were considered as initial nodes.\n";
 print "[Report:detect_seeds] $num_align_term K-mers were aligned to terminal node.\t$num_term were considered as terminal nodes.\n";
-$t_end = new Benchmark; 
+my $t_end = new Benchmark; 
 print "[Process:detect_seeds] Detection of seeds were completed; Processed Time = ", timestr(timediff($t_end, $t_begin)), "\n\n";
 exit;
 

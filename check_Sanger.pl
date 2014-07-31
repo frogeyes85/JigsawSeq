@@ -17,7 +17,7 @@ my $usage = "./check_Sanger.pl [contigs.fa] [Sanger.fa]\n";
 if ($#ARGV != 1){die $usage;}
 my ($in_cont, $in_Sanger,) = @ARGV;
 
-system("bwa mem $in_cont $in_Sanger > $in_cont\.Sanger.sam");
+system("./bwa mem $in_cont $in_Sanger > $in_cont\.Sanger.sam");
 
 open(IN, "<$in_cont\.Sanger.sam");
 my %San;
