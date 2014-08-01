@@ -91,6 +91,7 @@ JigsawSeq::call_sys("./NTS_graph.pl $conf{'output_prefix'}\.graph 1000 > $conf{'
 JigsawSeq::call_sys("./cleanup_graph.pl $conf{'output_prefix'}\.graph $conf{'cutoff_ratio'} $conf{'min_depth'} $conf{'output_prefix'}\.graph.clean");
 
 JigsawSeq::call_sys("sort -r -n -k 2 $conf{'output_prefix'}\.graph.clean > $conf{'output_prefix'}\.graph.clean.sort");
+
 my $t_end=new Benchmark;
 print "[Process:main] Sorting was completed; Processed Time = ", timestr(timediff($t_end, $t_begin)), "\n\n";
 
@@ -101,7 +102,7 @@ JigsawSeq::call_sys("./contigs2fa.pl $conf{'output_prefix'}\.contigs $conf{'outp
 JigsawSeq::call_sys("./mapping_contigs.pl $conf{'output_prefix'}\.contigs.fa $conf{'input_F'} $conf{'input_R'} $conf{'k-mer_len'} $conf{'output_prefix'}\.contigs");
 JigsawSeq::call_sys("./DP_analysis.pl $conf{'output_prefix'}\.contigs.DP $conf{'output_prefix'}\.contigs.len $conf{'k-mer_len'} $conf{'step_size'} $conf{'output_prefix'}\.contigs.stat");
 JigsawSeq::call_sys("./select_contigs.pl $conf{'output_prefix'}\.contigs.stat $conf{'output_prefix'}\.contigs.fa $conf{'k-mer_len'} $conf{'step_size'} $conf{'output_prefix'}\.contigs");
-JigsawSeq::call_sys("wc -l $conf{'input_F'} $conf{'input_R'} $conf{'output_prefix'}\.graph.clean)";
+JigsawSeq::call_sys("wc -l $conf{'input_F'} $conf{'input_R'} $conf{'output_prefix'}\.graph.clean");
 
 my $t_end=new Benchmark;
 print "[Process:main] Whole processes of JigsawSeq analysis were completed; Processed Time = ", timestr(timediff($t_end, $t_begin)), "\n\n";
