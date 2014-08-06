@@ -39,13 +39,15 @@ print $num_process, " contigs were processed, and ", $num_pass, " contigs were p
 open(IN, "<$in_fa") or die "Can't open $in_fa.\n";
 open(OUT, ">$out_fa");
 $num_process=0;
+my $last="";; 
 while(my $header = <IN>){
     die "[Error] File format might be wrong\n" unless (substr($header, 0, 1) eq ">");
     substr($header, 0, 1)  = "";
     chop($header);
+    $last = $header;
     my $seq = <IN>;
     chop($seq);
-    substr($seq, 0, ($in_kmer - $step_size))="";
+    substr($seq, 0, ($in_kmer - $step_size -2))="";
     substr($seq, -($in_kmer-$step_size)) = "";
     if (exists $pass{$header}){
         print OUT ">$header\t$pass{$header}\n$seq\n";
@@ -54,6 +56,7 @@ while(my $header = <IN>){
 #       die "Can't find $header in $in_fa.\n";
     }
 }
+print "Last: $last\n";
 close(IN);
 close(OUT);
 exit;
