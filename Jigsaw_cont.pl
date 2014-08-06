@@ -102,6 +102,7 @@ JigsawSeq::call_sys("./detect_seeds.pl $conf{'output_prefix'}\.kmer.fa $conf{'ve
 JigsawSeq::call_sys("./explore_graph.pl $conf{'output_prefix'}\.graph.clean.sort $conf{'output_prefix'}\.seeds $conf{'k-mer_len'} $conf{'step_size'} $conf{'exp_contig_size'} $conf{'output_prefix'}\.contigs");
 JigsawSeq::call_sys("./contigs2fa.pl $conf{'output_prefix'}\.contigs $conf{'output_prefix'}\.contigs.fa");
 JigsawSeq::call_sys("./mapping_contigs.pl $conf{'output_prefix'}\.contigs.fa $conf{'input_F'} $conf{'input_R'} $conf{'k-mer_len'} $conf{'output_prefix'}\.contigs");
+JigsawSeq::call_sys("./DP_analysis.pl $conf{'output_prefix'}\.contigs.DP $conf{'output_prefix'}\.contigs.len $conf{'k-mer_len'} $conf{'step_size'} $conf{'output_prefix'}\.contigs.stat");
 JigsawSeq::call_sys("./select_contigs.pl $conf{'output_prefix'}\.contigs.stat $conf{'output_prefix'}\.contigs.fa $conf{'k-mer_len'} $conf{'step_size'} $conf{'output_prefix'}\.contigs");
 JigsawSeq::call_sys("wc -l $conf{'input_F'} $conf{'input_R'} $conf{'output_prefix'}\.graph.clean");
 
