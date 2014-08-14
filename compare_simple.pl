@@ -15,8 +15,7 @@ open(IN, "<$in_cont") or die "Can't open $in_cont\n";
 while(my $h=<IN>){ 
     substr($h, 0, 1) = "";
     chop($h);
-    my $seq = <IN>;
-    chop($seq);
+    (my $seq,) = split /\s+/, <IN>;
     my @chunks = split /\s+/, $_;
     $Con{$seq}{'1'} = $h;
     $num_con1++;
@@ -26,8 +25,7 @@ open(IN2, "<$in_cont2") or die "Can't open $in_cont2\n";
 while(my $h=<IN2>){ 
     substr($h, 0, 1) = "";
     chop($h);
-    my $seq = <IN2>;
-    chop($seq);
+    (my $seq, ) = split /\s+/, <IN2>;
     my @chunks = split /\s+/, $_;
     $Con{$seq}{'2'} = $h;
     $num_con2++;

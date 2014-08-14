@@ -45,9 +45,9 @@ while(my $header = <IN>){
     substr($header, 0, 1)  = "";
     chop($header);
     $last = $header;
-    my $seq = <IN>;
-    chop($seq);
-    substr($seq, 0, ($in_kmer - $step_size -2))="";
+    (my $seq,) = split /\s+/, <IN>;
+
+    substr($seq, 0, ($in_kmer - $step_size))="";
     substr($seq, -($in_kmer-$step_size)) = "";
     if (exists $pass{$header}){
         print OUT ">$header\t$pass{$header}\n$seq\n";
