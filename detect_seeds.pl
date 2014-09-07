@@ -34,7 +34,7 @@ print OUT ">terminal\n", uc(substr($seq,0,$len_ref_seed)), "\n";
 close(OUT);
 close(IN);
 
-JigsawSeq::call_sys("./bwa index -a is $ref_seed_fname");
+JigsawSeq::call_sys("./bwa index $ref_seed_fname");
 if ($in_kmer > 40){    # ./bwa mem only work for kmer longer than xx.
 	JigsawSeq::call_sys("./bwa mem -t 3 -O2 -E1 $ref_seed_fname $in_fname > $seeds_sam_fname");
 } else{

@@ -18,7 +18,7 @@ my $sam_fname = "TMP_" . $out_fname . ".sam";
 my $len_fname = $out_fname . ".len";
 
 my $t_begin = new Benchmark;
-JigsawSeq::call_sys("./bwa index -a is $in_contigs");
+JigsawSeq::call_sys("./bwa index $in_contigs");
 JigsawSeq::call_sys("./bwa mem -t 3 -B100 -O100 -E50 $in_contigs $in_fnameF $in_fnameR > $sam_fname");
 
 my $t_end = new Benchmark; 
