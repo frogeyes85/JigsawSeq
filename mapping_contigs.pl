@@ -13,7 +13,7 @@ use Benchmark ':hireswallclock';
 my $usage = "[Usage] ./mapping_contigs.pl [input: contigs fasta] [input: fastq format (forward)] [input: fastq format (reverse)] [k: k-mer length] [output: prefix of sam/bam]\n";
 die $usage unless ($#ARGV == 4);
 my ($in_contigs, $in_fnameF, $in_fnameR, $in_kmer, $out_fname,) = @ARGV;
-die "[Error] k-mer length must be 9 <= k-mer <=93.\n" unless ((9<=$in_kmer)&&($in_kmer<=93));
+die "[Error] k-mer length must be 9 <= k-mer <=150.\n" unless ((9<=$in_kmer)&&($in_kmer<=150));
 my $sam_fname = "TMP_" . $out_fname . ".sam";
 my $len_fname = $out_fname . ".len";
 

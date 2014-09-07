@@ -35,7 +35,7 @@ close(IN);
 #output_prefix k30s3
 
 die "[Error] Some required fields are missing in $in_conf.\n" unless ( (exists $conf{'input_F'})&&(exists $conf{'input_R'})&&(exists $conf{'vector_seq'})&&(exists $conf{'exp_contig_size'})&&(exists $conf{'k-mer_len'})&&(exists $conf{'step_size'})&&(exists $conf{'min_depth'})&&(exists $conf{'cutoff_ratio'})&&(exists $conf{'output_prefix'}) );
-die "[Error] k-mer length must be 9 <= k-mer <=93.\n" unless ((9<=$conf{'k-mer_len'})&&($conf{'k-mer_len'}<=93));
+die "[Error] k-mer length must be 9 <= k-mer <=150.\n" unless ((9<=$conf{'k-mer_len'})&&($conf{'k-mer_len'}<=150));
 die "[Error] step size must be 1, 2, or 3.\n" unless ((1<=$conf{'step_size'})&&($3<=$conf{'step_size'}));
 die "[Error] k-mer length must be divisible by step size.\n" if ($conf{'k-mer_len'} % $conf{'step_size'});
 

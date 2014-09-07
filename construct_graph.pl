@@ -11,7 +11,7 @@ use Benchmark ':hireswallclock';
 my $usage = "[Usage] ./construct_graph.pl [input: fastq format] [k: k-mer length] [s: step size] [output: graph]\n";
 die $usage unless ($#ARGV == 3);
 my ($in_fname, $in_kmer, $step_size, $out_fname,) = @ARGV;
-die "[Error] k-mer length must be 9 <= k-mer <=93.\n" unless ((9<=$in_kmer)&&($in_kmer<=93));
+die "[Error] k-mer length must be 9 <= k-mer <=150.\n" unless ((9<=$in_kmer)&&($in_kmer<=150));
 die "[Error] step size must be 1, 2, or 3.\n" unless ((1<=$step_size)&&($3<=$step_size));
 die "[Error] k-mer length must be divisible by step size.\n" if ($in_kmer % $step_size);
 
