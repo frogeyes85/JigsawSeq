@@ -68,8 +68,11 @@ while(<IN>){
 			$sum_d+=$d[$i];
 		}
 		if (($pos + $sum_d) == ($len_ref_seed+1) ) { # find initial node!
-			print OUT ">initial $DP\n$str\n";
-			$num_init++;
+		    if ($l[$#l] eq "S"){
+			next;
+		    }
+		    print OUT ">initial $DP\n$str\n";
+		    $num_init++;
 		}
 	}elsif ($rname eq "terminal"){
 		$num_align_term++;
