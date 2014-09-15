@@ -55,7 +55,7 @@ foreach my $k (keys %L){
     print OUT join("\t", $k, $L{$k}), "\n";
 }
 for (my $i=0; $i<=$#bin; $i++){
-    print join("\t", $i, $S[$i], ($S[$i]/$total_sum)), "\n";
+    print join("\t", $bin[$i], $S[$i], ($S[$i]/$total_sum)), "\n";
 }
 close(OUT);
 exit;
