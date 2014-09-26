@@ -2,8 +2,9 @@ input_F KanR_NRY_Err_96_1.fastq
 input_R KanR_NRY_Err_96_2.fastq
 vector_seq pBR322_vector.fasta
 exp_contig_size 816
-k-mer_len 60
+k-mer_len 90
 step_size 3
 min_depth 2
 cutoff_ratio 100
-output_prefix KanR_NRY_Err_96.k60s3
+seed_cutoff 250
+output_prefix KanR_NRY_Err_96.k90s3

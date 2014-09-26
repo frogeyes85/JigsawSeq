@@ -34,7 +34,7 @@ close(IN);
 #cutoff_ratio 100
 #output_prefix k30s3
 
-die "[Error] Some required fields are missing in $in_conf.\n" unless ( (exists $conf{'input_F'})&&(exists $conf{'input_R'})&&(exists $conf{'vector_seq'})&&(exists $conf{'exp_contig_size'})&&(exists $conf{'k-mer_len'})&&(exists $conf{'step_size'})&&(exists $conf{'min_depth'})&&(exists $conf{'cutoff_ratio'})&&(exists $conf{'output_prefix'}) );
+die "[Error] Some required fields are missing in $in_conf.\n" unless ( (exists $conf{'input_F'})&&(exists $conf{'input_R'})&&(exists $conf{'vector_seq'})&&(exists $conf{'exp_contig_size'})&&(exists $conf{'k-mer_len'})&&(exists $conf{'step_size'})&&(exists $conf{'min_depth'})&&(exists $conf{'cutoff_ratio'})&&(exists $conf{'output_prefix'})&&(exists $conf{'seed_cutoff'}) );
 die "[Error] k-mer length must be 9 <= k-mer <=150.\n" unless ((9<=$conf{'k-mer_len'})&&($conf{'k-mer_len'}<=150));
 die "[Error] step size must be 1, 2, or 3.\n" unless ((1<=$conf{'step_size'})&&($3<=$conf{'step_size'}));
 die "[Error] k-mer length must be divisible by step size.\n" if ($conf{'k-mer_len'} % $conf{'step_size'});
@@ -97,7 +97,7 @@ my $t_end=new Benchmark;
 print "[Process:main] Sorting was completed; Processed Time = ", timestr(timediff($t_end, $t_begin)), "\n\n";
 
 JigsawSeq::call_sys("./Kmer2fa.pl $conf{'output_prefix'}\.graph.clean.sort $conf{'output_prefix'}\.kmer.fa");
-JigsawSeq::call_sys("./detect_seeds.pl $conf{'output_prefix'}\.kmer.fa $conf{'vector_seq'} $conf{'k-mer_len'} $conf{'step_size'} $conf{'cutoff_ratio'} $conf{'output_prefix'}\.seeds");
+JigsawSeq::call_sys("./detect_seeds.pl $conf{'output_prefix'}\.kmer.fa $conf{'vector_seq'} $conf{'k-mer_len'} $conf{'step_size'} $conf{'seed_cutoff'} $conf{'output_prefix'}\.seeds");
 JigsawSeq::call_sys("./explore_graph.pl $conf{'output_prefix'}\.graph.clean.sort $conf{'output_prefix'}\.seeds $conf{'k-mer_len'} $conf{'step_size'} $conf{'exp_contig_size'} $conf{'output_prefix'}\.contigs");
 JigsawSeq::call_sys("./contigs2fa.pl $conf{'output_prefix'}\.contigs $conf{'output_prefix'}\.contigs.fa");
 JigsawSeq::call_sys("./mapping_contigs.pl $conf{'output_prefix'}\.contigs.fa $conf{'input_F'} $conf{'input_R'} $conf{'k-mer_len'} $conf{'output_prefix'}\.contigs");
