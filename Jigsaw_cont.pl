@@ -105,6 +105,7 @@ JigsawSeq::call_sys("./mapping_contigs.pl $conf{'output_prefix'}\.contigs.fa $co
 JigsawSeq::call_sys("./DP_analysis.pl $conf{'output_prefix'}\.contigs.DP $conf{'output_prefix'}\.contigs.len $conf{'k-mer_len'} $conf{'step_size'} $conf{'output_prefix'}\.contigs.stat");
 JigsawSeq::call_sys("./select_contigs.pl $conf{'output_prefix'}\.contigs.stat $conf{'output_prefix'}\.contigs.fa $conf{'k-mer_len'} $conf{'step_size'} $conf{'output_prefix'}\.contigs");
 JigsawSeq::call_sys("wc -l $conf{'input_F'} $conf{'input_R'} $conf{'output_prefix'}\.graph.clean");
+JigsawSeq::call_sys("cat $conf{'output_prefix'}\.seeds");
 
 my $t_end=new Benchmark;
 print "[Process:main] Whole processes of JigsawSeq analysis were completed; Processed Time = ", timestr(timediff($t_end, $t_begin)), "\n\n";

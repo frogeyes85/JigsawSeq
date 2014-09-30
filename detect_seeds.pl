@@ -6,7 +6,7 @@
 # Developed by Jung-Ki Yoon
 
 # bwa index -a is ref_seed.fa
-# bwa mem -t 3 -O2 -E1 ref_seed.fa k90s3.fa
+# bwa mem -t 6 -O2 -E1 ref_seed.fa k90s3.fa
 
 use strict;
 use JigsawSeq;
@@ -36,9 +36,9 @@ close(IN);
 
 JigsawSeq::call_sys("./bwa index $ref_seed_fname");
 if ($in_kmer > 40){    # ./bwa mem only work for kmer longer than xx.
-	JigsawSeq::call_sys("./bwa mem -t 3 -O2 -E1 $ref_seed_fname $in_fname > $seeds_sam_fname");
+	JigsawSeq::call_sys("./bwa mem -t 6 -O2 -E1 $ref_seed_fname $in_fname > $seeds_sam_fname");
 } else{
-	JigsawSeq::call_sys("./bwa aln -t 3 $ref_seed_fname $in_fname > TMP_$in_fname\.sai"); # may need further opimization for detecting seeds with indels.
+	JigsawSeq::call_sys("./bwa aln -t 6 $ref_seed_fname $in_fname > TMP_$in_fname\.sai"); # may need further opimization for detecting seeds with indels.
 	JigsawSeq::call_sys("./bwa samse $ref_seed_fname TMP_$in_fname\.sai $in_fname > $seeds_sam_fname");
 }
 my $t_end = new Benchmark; 
@@ -63,7 +63,7 @@ while(<IN>){
 		$num_align_init++;
 		($qname, my $DP) = split /_/, $qname;
 		if ($max_DP_init == -1){$max_DP_init=$DP;}
-		next if ($max_DP_init / $DP > $cutoff_ratio);
+		next if (($max_DP_init / $DP > $cutoff_ratio)||($DP < $cutoff_ratio));
 		for(my $i=0; $i<=$#d; $i++){
 			$sum_d+=$d[$i];
 		}
@@ -78,7 +78,7 @@ while(<IN>){
 		$num_align_term++;
 		($qname, my $DP) = split /_/, $qname;
 		if ($max_DP_term == -1){$max_DP_term=$DP;}
-		next if ($max_DP_term / $DP > $cutoff_ratio);
+		next if (($max_DP_term / $DP > $cutoff_ratio)||($DP < $cutoff_ratio));
 		for(my $i=0; $i<=$#d; $i++){
 			if (($l[$i] eq "M")||($l[$i] eq "I")){
 				$sum_d+=$d[$i];
