@@ -6,7 +6,7 @@
 # Developed by Jung-Ki Yoon
 
 # bwa index -a is ref_seed.fa
-# bwa mem -t 6 -O2 -E1 ref_seed.fa k90s3.fa
+# bwa mem -t 3 -O2 -E1 ref_seed.fa k90s3.fa
 
 use strict;
 use JigsawSeq;
@@ -36,9 +36,9 @@ close(IN);
 
 JigsawSeq::call_sys("./bwa index $ref_seed_fname");
 if ($in_kmer > 40){    # ./bwa mem only work for kmer longer than xx.
-	JigsawSeq::call_sys("./bwa mem -t 6 -O2 -E1 $ref_seed_fname $in_fname > $seeds_sam_fname");
+	JigsawSeq::call_sys("./bwa mem -t 3 -O2 -E1 $ref_seed_fname $in_fname > $seeds_sam_fname");
 } else{
-	JigsawSeq::call_sys("./bwa aln -t 6 $ref_seed_fname $in_fname > TMP_$in_fname\.sai"); # may need further opimization for detecting seeds with indels.
+	JigsawSeq::call_sys("./bwa aln -t 3 $ref_seed_fname $in_fname > TMP_$in_fname\.sai"); # may need further opimization for detecting seeds with indels.
 	JigsawSeq::call_sys("./bwa samse $ref_seed_fname TMP_$in_fname\.sai $in_fname > $seeds_sam_fname");
 }
 my $t_end = new Benchmark; 
