@@ -10,7 +10,7 @@ use strict;
 #k60s1_5k2.contigs_2     418     9.11538461538461        2.34833098572253        0.257622808560278       0.604983623970965
 
 my $usage = "./select_contigs.pl [input: stat] [input: contigs.fa] [input: k-mer length] [input:step-size] [output_prefix: contigs]\n";
-my $criteria = 0.306;
+my $criteria = 0.2163;
 
 die $usage if ($#ARGV != 4);
 my ($in_stat, $in_fa, $in_kmer, $step_size, $out_fname,) = @ARGV;
