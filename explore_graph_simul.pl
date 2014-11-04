@@ -98,18 +98,12 @@ sub explore_contig(){
 	    
 	    for(my $i=0; $i<=$#terminal_nodes; $i++){
 		if ($c_node =~ /$terminal_nodes[$i]/){
-		    print "Reached to terminal nodes($i):$1|\n";
+		    print "Reached to terminal nodes($i):$terminal_nodes[$i]|\n\n";
 		    $c_n_term = $i;
 		    $c_status="T";
 		    last;
 		}
 	    }
-	    
-#			if ($c_node =~ $terminal_nodes[0]){
-#				$c_n_term = 0;
-#				$c_status="T";
-#				last;
-#			}
 	    
 	    substr($c_node, 0, $step_size) = "";
 	    if ($c_status eq "T"){last;}
@@ -117,24 +111,26 @@ sub explore_contig(){
 	    if ($#{$jobs[$pointer+1]}==-1){
 		print "Cur_node = $c_node\n";
 		if (!exists($node{$c_node})){   
-		    print "No further nodes\n";
+		    print "There is no further linked nodes! Move back to the last branching point.\n\n";
 		    $c_status = "E";					# Dead-end node
 		    last;
 		}
 		push @{$jobs[$pointer+1]}, split(/\,/, $node{$c_node});
-		print $pointer+1, ", $#{$jobs[$pointer+1]} ", join("\t", @{$jobs[$pointer+1]}), "\n";
-		print "next..\n";
-		<STDIN>;
+		$c_contig = "";
+		for(my $i=0; $i<=$pointer; $i++){
+		    $c_contig .= $jobs[$i][0];
+		}
+		print "Current contig = $c_contig\n";
+		print $pointer+1, "th codon of contigs: ", $#{$jobs[$pointer+1]}+1, " edges are detected; ", join(", ", @{$jobs[$pointer+1]}), ", and ", ${$jobs[$pointer+1]}[0], " is explored first.\n";
+		print "next..\n";<STDIN>;
 	    }	
 	}
-	print "P: $pointer\n";
-	<STDIN>;
 	
 	# Construct contigs
 	for(my $i=0; $i<=$pointer; $i++){
 	    $c_contig .= $jobs[$i][0];
-	    print "Contig = $c_contig\n";
 	}
+#	print "Contig = $c_contig\n";
 	
 	# Check terminal nodes
 	if ($c_status eq "T") {
@@ -143,25 +139,26 @@ sub explore_contig(){
 	
 	if (($c_status eq "T")) {
 #		if (($c_status eq "T")||($c_status eq "M")) {
-	    print "Added contigs = $c_contig\n";
+	    print "Detected contigs is saved; $c_contig\n";
 	    $contigs{$c_contig}{'num'}++;
 	    $contigs{$c_contig}{'status'} = $c_status;
 	    $contigs{$c_contig}{'n_init'} = $c_n_init if ($contigs{$c_contig}{'n_init'} eq "");
 	    $contigs{$c_contig}{'n_term'} = $c_n_term if (($contigs{$c_contig}{'n_term'} eq "")||($contigs{$c_contig}{'n_term'}>$c_n_term));
 	} else{
-	    print "Max-stroll or End node\n";
+#	    print "The number of codons exceeded the max. number or  End node\n";
 	}
 	
 	
 	# Erase used nodes from job-queue;
-	for (my $e=$pointer; $e>=0; $e--){
+	my $e=$pointer;
+	for ($e=$pointer; $e>=0; $e--){
 	    if ($#{$jobs[$e+1]}==-1) {
 		shift @{$jobs[$e]};
 	    } else{	
 		last;
 	    }
 	}
-	print "Erasing completed. last node was $e\n";
+	print "Track back to the last nodes; ", $e+1, " th codon\n\n";
     }
     return;
 }

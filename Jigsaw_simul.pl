@@ -101,7 +101,7 @@ JigsawSeq::call_sys("./Kmer2fa.pl $conf{'output_prefix'}\.graph.clean.sort $conf
 print ">Press the enter...";<STDIN>;
 JigsawSeq::call_sys("./detect_seeds.pl $conf{'output_prefix'}\.kmer.fa $conf{'vector_seq'} $conf{'k-mer_len'} $conf{'step_size'} $conf{'seed_cutoff'} $conf{'output_prefix'}\.seeds");
 print ">Press the enter...";<STDIN>;
-JigsawSeq::call_sys("./explore_graph_simul.pl $conf{'output_prefix'}\.graph.clean.sort $conf{'output_prefix'}\.seeds $conf{'k-mer_len'} $conf{'step_size'} $conf{'exp_contig_size'} $conf{'output_prefix'}\.contigs");
+JigsawSeq::call_sys("./explore_graph.pl $conf{'output_prefix'}\.graph.clean.sort $conf{'output_prefix'}\.seeds $conf{'k-mer_len'} $conf{'step_size'} $conf{'exp_contig_size'} $conf{'output_prefix'}\.contigs");
 print ">Press the enter...";<STDIN>;
 JigsawSeq::call_sys("./contigs2fa.pl $conf{'output_prefix'}\.contigs $conf{'output_prefix'}\.contigs.fa");
 print ">Press the enter...";<STDIN>;
