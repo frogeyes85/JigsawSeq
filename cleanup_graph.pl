@@ -15,7 +15,10 @@ my $minEdgeDepth = $minNodeDepth;
 my $polyA = "AAAAAAAA";   # due to illumina seq with short insertion size sequences
 my $strange1 = "CATAAACAGTAATACAAGGGGTGTTGCGGAGTGTATACTGGCTTA";    
 my $strange2 = "CATAAACAGTAATACAAGGGGTGTTACATAAACAGTAATACAAGGGGTGTT";    # due to Gibbs cloning breakpoint
-substr($strange1, 0, 6) = substr($strange1, -6) = substr($strange2, 0, 8) = substr($strange2, -8) = "";
+substr($strange1, 0, 6) = "";
+substr($strange1, -6) = "";
+substr($strange2, 0, 8) = "";
+substr($strange2, -8) = "";
 
 print "[Program:cleanup_graph] input: $in_fname cutoff_ratio: $cutoff_ratio min.Node/EdgeDepth: $minNodeDepth output:$out_fname\n";
 
